@@ -51,3 +51,7 @@ trick: n = n & (n-1)  可以去掉n中二进制中的一个1
 会他们的递归版本，和非递归版本
 
 树： DFS BFS (使用Queue， stack)
+
+10. 库函数
+memcpy, memmove 是以字节为单位的， 如果你的数组元素是int，那么记得大小要 乘以 sizeof(int)
+memcpy 不能处理overlap的情况，但是memmove可以
