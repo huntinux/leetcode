@@ -1,57 +1,57 @@
 learn leetcode
 
-�ܽ᣺
-1. ����hash
-hash�ܹ����ٲ��ҡ� 
-С���ɣ� ����ʹ��int���飬����int����(bitmap)��ģ��򵥵�hash����Ŀ: 318��
-��ô�ȶ�����Ԫ�ص�hashֵ�Ƿ���ͬ�Ϳ���ֱ���� '=='
-�Ƚ�����Ԫ���Ƿ�����ͬ��ֵ������ֱ��ʹ�� '&'
+总结：
+1. 关于hash
+hash能够快速查找。 
+小技巧： 可以使用int数组，甚至int变量(bitmap)来模拟简单的hash（题目: 318）
+那么比对两个元素的hash值是否相同就可以直接用 '=='
+比较两个元素是否含有相同的值，可以直接使用 '&'
 
-c++ : map<key, value> set<k>   (STL: ���������������㷨)
+c++ : map<key, value> set<k>   (STL: 容器，迭代器，算法)
 python: dict tuple list set
 java: hashmap<k,v> hashset<k>
 
-2.��̬�滮
-����1�� �������⣬�ܹ��ܽ��һ��״̬ f(i)
-����2�� ���ɳ�״̬��ĵ��Ʊ���ʽ
+2.动态规划
+步骤1： 归纳问题，能够总结出一个状态 f(i)
+步骤2： 归纳出状态间的递推表达式
 
-���⣺ 198
+例题： 198, 53
 
 3.string
-��Ҫ��Ϥstring�Ļ����÷�
+需要熟悉string的基本用法
 c++ string
 python str
 java String
 
-4. �����������㷨
-һ�˿���: ���Կ��ٽ�Ԫ�طֳɡ����ࡱ
-������: ������n������
+4. 基本的排序算法
+一趟快排: 可以快速将元素分成“两类”
+堆排序: 找最大的n个数字
 
-5. �����㷨
-���ֲ��ң�Ҫ���Ѿ������
-���������
-�����
+5. 查找算法
+二分查找：要求已经排序好
+二叉查找树
+红黑树
 
-6. ��ջ
-�ö�ģ��ջ
-��ջģ���
-����ʹ��ջ�������ݹ�
+6. 堆栈
+用堆模拟栈
+用栈模拟堆
+可以使用栈来消除递归
 
-7. ����
-��Ҫ�ƶ�����Ԫ��ʱ�����Զ�̬ͳ��Ԫ����Ҫ�ƶ���λ�ã���Ԫ�ء�һ�ε�λ�� (27)
+7. 数组
+需要移动数组元素时，可以动态统计元素需要移动的位置，让元素“一次到位” (27)
 
-8. λ����
-^ : (136); ��������swap�������� 
+8. 位操作
+^ : (136); 可以用来swap两个数字 
 |
 &
-trick: n = n & (n-1)  ����ȥ��n�ж������е�һ��1
+trick: n = n & (n-1)  可以去掉n中二进制中的一个1
 
-9. ������
-������Ҫ���������������ֱ����������������򣬺���
-�����ǵĵݹ�汾���ͷǵݹ�汾
-���� DFS BFS (ʹ��Queue�� stack)
-��������������·�� �� ����257: helper����
+9. 二叉树
+首先需要熟练二叉树的三种遍历方法：先序，中序，后序
+会他们的递归版本，和非递归版本
+树： DFS BFS (使用Queue， stack)
+遍历二叉树所有路径 ： 问题257: helper函数
 
-10. �⺯��
-memcpy, memmove �����ֽ�Ϊ��λ�ģ� ����������Ԫ����int����ô�ǵô�СҪ ���� sizeof(int)
-memcpy ���ܴ���overlap�����������memmove����
+10. 库函数
+memcpy, memmove 是以字节为单位的， 如果你的数组元素是int，那么记得大小要 乘以 sizeof(int)
+memcpy 不能处理overlap的情况，但是memmove可以
