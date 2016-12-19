@@ -1,4 +1,6 @@
 /*
+WRONG SOLUTION!  SEE: http://shmilyaw-hotmail-com.iteye.com/blog/2289919
+
 时间：O(n) 空间：O(1)
 
 相比于第一种算法，空间复杂度降低
