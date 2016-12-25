@@ -24,6 +24,7 @@ You may assume no duplicate exists in the array.
 
 */
 
+// 如果有重复元素呢？ 看82题
 int search(int* nums, int numsSize, int target) {
     
     int left = 0, right = numsSize - 1, middle;
