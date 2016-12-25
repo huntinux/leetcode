@@ -37,7 +37,7 @@ int search(int* nums, int numsSize, int target) {
             else
                 left = middle + 1;
                 
-        } else if(nums[middle] <= nums[right]){
+        } else {
             if(target > nums[middle] && target <= nums[right])  // 注意等号          
                 left = middle + 1;
             else
