@@ -90,3 +90,30 @@ int removeDuplicates(int* nums, int numsSize) {
     }
     return result;
 }
+
+// naive
+// 思想，因为已经排序好，如果有重复元素，那么后面的元素向前移动的距离forward是不断递增的
+int removeDuplicates(int* nums, int numsSize) {
+    int i, j, forward;
+
+    i = forward = 0;
+    while(i < numsSize - 1)
+    {
+        j = i + 1;
+        while(j < numsSize)
+        {
+            if(nums[i] != nums[j])
+            {
+                if(forward != 0) nums[j - forward] = nums[j]; // 向前移动
+                break;
+            }
+            else
+            {
+                forward++; // 此区间有重复元素，因此后面元素向前移动+1
+                j++;
+            }
+        }
+        i = j;
+    }
+    return numsSize - forward;
+}
