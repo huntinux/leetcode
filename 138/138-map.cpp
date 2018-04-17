@@ -1,12 +1,11 @@
 #include <iostream>
-
+#include <unordered_map>
 
 struct RandomListNode {
     int label;
     RandomListNode *next, *random;
-    explicit RandomListNode(int l) : label(l) {}
+    explicit RandomListNode(int l) : label(l), next(NULL), random(NULL) {}
 };
-
 void PrintList(RandomListNode* h)
 {
     RandomListNode *p;
@@ -18,47 +17,45 @@ void PrintList(RandomListNode* h)
     }
 }
 
-// see: https://www.cnblogs.com/TenosDoIt/p/3387000.html
-// 1->1'->2->2'->3->3'->null
-// 把新建节点插在后面，那么新建节点的random就是老节点random的next域
-// 最后将链表拆成两个即可
-// 注意random有可能为null的情况
-// 时间O(n) 空间O(1)
+// 使用hash map记录新节点指针与旧节点指针的对应关系
+// 时间O(n) 空间O(n)
 class Solution {
 public:
     RandomListNode *copyRandomList(RandomListNode *head) {
 
         if(head == NULL) return NULL;
 
-        RandomListNode *p, *q, *r, *new_head;
+        RandomListNode *p, *q, *r, *new_head, *tail;
+
+        typedef RandomListNode* OldNodePointer;
+        typedef RandomListNode* NewNodePointer;
+
+        std::unordered_map<OldNodePointer, NewNodePointer> m;
 
         p = head;
+	new_head = tail = NULL;
         while(p != NULL) {
             RandomListNode* n = new RandomListNode(p->label);
-            n->next = p->next;
-            p->next = n;
-            p = n->next;
+	    m.insert(std::make_pair(p, n));
+	    if(new_head != NULL) {
+		tail->next = n;	
+		tail = n;
+            } else {
+	    	new_head = tail = n;
+	    }
+            p = p->next;
         }
-
-        p = head;
-        while(p != NULL) {
-            q = p->next;
-            q->random = (p->random != NULL) ? (p->random->next) : (NULL);
-            p = p->next->next;
-        }
-
-        new_head = head->next;
-        p = head;
-        while(p->next != NULL) {
-            r = p->next;
-            p->next = r->next;
-            p = r;
-        }
+	
+	p = head; q = new_head;
+	while(p != NULL) {
+	    q->random = m[p->random];
+	    p = p->next;
+	    q = q->next;
+	}
 
         return new_head;
     }
 };
-
 
 int main()
 {
@@ -79,3 +76,5 @@ int main()
     RandomListNode* h = s.copyRandomList(&n1);
     PrintList(h);
 }
+
+
