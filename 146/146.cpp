@@ -1,5 +1,3 @@
-// 使用双向链表，因为需要高效的任意位置的删除，头部插入
-// 使用hash map，因为需要快速定位链表中的节点
 class LRUCache {
     typedef int Key;
     typedef int Value;
@@ -18,29 +16,31 @@ public:
     	if (e == m.end()) {
     		return -1;
     	} else {
-            auto k = e->second->first;
+            //auto k = e->second->first;
     		auto v = e->second->second;
-    		l.erase(e->second);
-    		l.push_front(make_pair(k, v));
+    		//l.erase(e->second);
+    		//l.push_front(make_pair(k, v));
+            l.splice(l.begin(), l, e->second); // 使用splice避免节点的删除和创建，直接修改指针，ps：splice函数一定要熟练使用
     		return v;
     	}
     }
-
+   
     void put(int key, int value) {
         auto e = m.find(key);
     	if (e == m.end()) {
     		if (l.size() == cap) {
-    			m.erase(l.back().first);
+    			m.erase(l.back().first); // 这就是为什么list中不仅需要有value，还要有key的信息
     			l.pop_back();
     		}
     		l.push_front(make_pair(key, value));
     		m.insert(std::make_pair(key, l.begin()));
     	} else {
             e->second->second = value;
-            auto k = e->second->first;
-    		auto v = e->second->second;
-    		l.erase(e->second);
-    		l.push_front(make_pair(k, v));
+            //auto k = e->second->first;
+    		//auto v = e->second->second;
+    		//l.erase(e->second);
+    		//l.push_front(make_pair(k, v));
+            l.splice(l.begin(), l, e->second);
         }
     }
 
