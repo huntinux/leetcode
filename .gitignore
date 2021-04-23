@@ -1,2 +1,6 @@
 a.out
 *.o
+bazel-bin
+bazel-leetcode
+bazel-out
+bazel-testlogs
