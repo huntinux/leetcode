@@ -19,12 +19,12 @@ uint32_t Solution::FrogJumpDP(uint32_t n) {
   if (n == 0) return 0;
   if (n == 1) return 1;
   if (n == 2) return 2;
-  std::vector<uint32_t> dict {0, 1, 2};
+  std::vector<uint32_t> dict{0, 1, 2};
   dict.reserve(n);
   for (int i = 3; i < n; ++i) {
     dict[i] = dict[i - 1] + dict[i - 2];
   }
-  return dict[n - 1] + dict[n -2];
+  return dict[n - 1] + dict[n - 2];
 }
 
 // summary
