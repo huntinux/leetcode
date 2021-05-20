@@ -5,42 +5,7 @@
 
 #include "gtest/gtest.h"
 
-template <typename T>
-static Node* BuildList(const std::vector<T>& elems) {
-  Node* head = nullptr;
-  Node* tail = nullptr;
-  for (auto e : elems) {
-    Node* node = new Node(e);
-    if (!head) {
-      head = node;
-      tail = node;
-    } else {
-      tail->next = node;
-      tail = node;
-    }
-  }
-  return head;
-}
-
-static void ReleaseList(Node* head) {
-  Node* cur = head;
-  while (cur) {
-    Node* next = cur->next;
-    delete cur;
-    cur = next;
-  }
-}
-
-static std::string DebugList(Node* head) {
-  std::stringstream ss;
-  Node* cur = head;
-  while (cur) {
-    ss << cur->value << "->";
-    cur = cur->next;
-  }
-  ss << "NULL";
-  return ss.str();
-}
+using namespace list;
 
 TEST(test, case1) {
   Solution s;

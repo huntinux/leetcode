@@ -1,13 +1,8 @@
 #pragma once
 
-template <typename T>
-struct ListNode {
-  ListNode(const T& v) : value(v), next(nullptr) {}
-  T value;
-  ListNode* next;
-};
+#include "src/linear/list/common/list.h"
 
-using Node = ListNode<int>;
+using list::Node;
 
 class Solution {
  public:
