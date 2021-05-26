@@ -1,5 +1,6 @@
 #include "solution.h"
 
+#include <queue>
 #include <stack>
 #include <unordered_set>
 
@@ -141,3 +142,29 @@ vector<int> postorderTraversal(TreeNode *root) {
   return nodes;
 }
 
+// 层次遍历
+// 借助队列的FIFO特性
+// 102. Binary Tree Level Order Traversal
+// Input: root = [3,9,20,null,null,15,7]
+// Output: [[3],[9,20],[15,7]]
+vector<vector<int>> Solution::LevelorderTraversal(TreeNode *root) {
+  vector<vector<int>> result;
+  if (!root) return result;
+  std::queue<std::pair<TreeNode *, int>> q; // 记录node和它对应的level
+  int level = 1;    // 根节点level为1
+  q.push(std::make_pair(root, level));
+  while (!q.empty()) {
+    const std::pair<TreeNode *, int> &p = q.front();
+    TreeNode *node = p.first;
+    int level = p.second;
+    q.pop();
+    if (result.size() < level) {
+      result.resize(level);
+    }
+    vector<int> &sub_result = result[level - 1];
+    sub_result.push_back(node->val);
+    if (node->left) q.push(std::make_pair(node->left, level + 1)); // 子节点level为父节点level+1
+    if (node->right) q.push(std::make_pair(node->right, level + 1));
+  }
+  return result;
+}

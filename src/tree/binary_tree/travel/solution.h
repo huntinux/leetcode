@@ -13,7 +13,6 @@ class Solution {
   vector<int> PreorderTraversalRecursion(TreeNode *root);
   vector<int> InorderTraversalRecursion(TreeNode *root);
   vector<int> PostorderTraversalRecursion(TreeNode *root);
-  vector<int> LevelorderTraversalRecursion(TreeNode *root);
 
   void PreorderTraversalRecursionHelper(TreeNode *root, vector<int> *result);
 
@@ -21,6 +20,6 @@ class Solution {
   vector<int> PreorderTraversalNonRecursion(TreeNode *root);
   vector<int> InorderTraversalNonRecursion(TreeNode *root);
   vector<int> PostorderTraversalNonRecursion(TreeNode *root);
-  vector<int> LevelorderTraversalNonRecursion(TreeNode *root);
+  vector<vector<int>> LevelorderTraversal(TreeNode *root);
 };
 
