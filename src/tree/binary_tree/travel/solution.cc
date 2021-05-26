@@ -71,14 +71,15 @@ vector<int> Solution::InorderTraversalNonRecursion(TreeNode *root) {
 vector<int> inorderTraversal(TreeNode *root) {
   vector<int> nodes;
   std::stack<TreeNode *> todo;
-  while (
-      root ||
-      !todo.empty()) {  // 判断条件很科学，当root不为空，或者栈不为空时继续循环
-    // 根不为空，那么就把根入栈, 并调跳转到左子树到根
+
+  // 判断条件很科学，当root不为空，或者栈不为空时继续循环
+  // 根不为空，那么就把根入栈, 并调跳转到左子树的根
+  while (root || !todo.empty()) {
     while (root) {
       todo.push(root);
       root = root->left;
     }
+
     // 此时栈顶元素为下个可以访问的元素了
     root = todo.top();
     todo.pop();
@@ -126,10 +127,11 @@ vector<int> postorderTraversal(TreeNode *root) {
       todo.push(root);
       root = root->left;
     } else {
-      TreeNode *node = todo.top();
-      if (node->right && last != node->right) { // 右边不空，且不是最近一次访问的节点（防止死循环）
-        root = node->right;
-      } else {
+      TreeNode *node = todo.top();  // 栈顶元素可能就是下一个输出元素
+      // 右边不空，且右边子树的跟之前没有遍历过(防止死循环)
+      if (node->right && last != node->right) {
+        root = node->right;  // 遍历指针root，指向这个节点
+      } else {  // 右子树为空 或者 右子树已经被访问过了, 当前节点可以输出
         nodes.push_back(node->val);
         last = node;  // 记录最近一次访问的节点
         todo.pop();
