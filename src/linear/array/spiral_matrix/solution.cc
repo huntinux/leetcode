@@ -15,6 +15,41 @@ inline bool IsValidPosition(int x, int y, int x_min, int x_max, int y_min,
 // V
 // y
 
+// ref: https://leetcode-cn.com/problems/spiral-matrix/solution/dong-hua-mo-ni-yi-xia-jiu-neng-gao-dong-i27qf/
+vector<int> Solution::spiralOrder(vector<vector<int>>& matrix) {
+  vector<int> result;
+  if (matrix.size() == 0) return result;
+  int top = 0, down = matrix.size() - 1, left = 0, right = matrix[0].size() - 1;
+  while (true) {
+    for (int i = left; i <= right; ++i) {
+      result.push_back(matrix[top][i]);
+    }
+    top++;
+    if (top > down) break;
+
+    for (int i = top; i <= down; ++i) {
+      result.push_back(matrix[i][right]);
+    }
+    right--;
+    if (left > right) break;
+
+    for (int i = right; i >= left; --i) {
+      result.push_back(matrix[down][i]);
+    }
+    down--;
+    if (top > down) break;
+
+    for (int i = down; i >= top; --i) {
+      result.push_back(matrix[i][left]);
+    }
+    left++;
+    if (left > right) break;
+  }
+
+  return result;
+}
+
+/*
 vector<int> Solution::spiralOrder(vector<vector<int>>& matrix) {
   vector<int> res;
   if (matrix.size() == 0) return res;
@@ -32,7 +67,7 @@ vector<int> Solution::spiralOrder(vector<vector<int>>& matrix) {
       ++x;
     }
     // 调整到下一个可能的位置
-    --x; 
+    --x;
     ++y;
     // 校验该位置是否合法
     if (!IsValidPosition(x, y, x_min, x_max, y_min, y_max)) break;
@@ -68,3 +103,6 @@ vector<int> Solution::spiralOrder(vector<vector<int>>& matrix) {
 
   return res;
 }
+*/
+
+
