@@ -6,8 +6,8 @@ STL对应的工具是哪些
 
 ```cpp
 1. 堆排序
-std::priority_queue<int> small; // 小根堆
-std::priority_queue<int, vector<int>, greater<int>> big; // 大根堆
+std::priority_queue<int> max_heap; // 大根堆
+std::priority_queue<int, vector<int>, greater<int>> min_heap; // 小根堆
 添加元素：时间复杂度 O(logn)
 
 2. 结合二分查找，实现插入排序
