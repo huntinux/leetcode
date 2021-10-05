@@ -10,7 +10,7 @@ namespace heap {
 // 从第一个非叶子节点开始调整, 到根节点结束
 void make(std::vector<int>& vec) {
   int n = vec.size();
-  for (int i = n / 2 - 1; i >= 0; --i) {
+  for (int i = n / 2 - 1; i >= 0; --i) { // 自下而上
     adjust(vec, n, i);
   }
 }
@@ -40,11 +40,11 @@ void sort(std::vector<int>& vec) {
   // 首先创建堆
   make(vec);
   
-  // 每次把对顶输出，然后调整剩余的元素，最后得到有序序列
+  // 每次把对顶输出，然后调整剩余的元素，最后得到有序序列（从小到大排序）
   int n = vec.size();
   for (int i = n - 1; i >= 0; --i) {
     std::swap(vec[i], vec[0]);
-    adjust(vec, i, 0); // 剩余元素个数为i (每次少一个)， 起始调整位置为0
+    adjust(vec, i, 0); // 剩余元素个数为i (每次少一个)， 起始调整位置为0（自上而下）
   }
 }
 
