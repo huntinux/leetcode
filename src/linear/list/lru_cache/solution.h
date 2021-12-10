@@ -4,6 +4,46 @@
 #include <list>
 #include <unordered_map>
 
+// 2021-12-10
+// test command with bazel: 
+// bazel test :test --test_output=all --cache_test_results=no
+class LruCache {
+ public:
+  LruCache(int capacity) : capacity_(capacity) {}
+
+  int get(int key) {
+    auto it = map_.find(key);
+    if (it == map_.end()) return -1;
+    auto list_it = it->second;
+    list_.splice(list_.begin(), list_, list_it);
+    return list_.begin()->second;
+  }
+  void put(int key, int value) {
+    auto it = map_.find(key);
+    if (it == map_.end()) {
+      if (size() >= capacity_) {
+        auto last = std::prev(list_.end());
+        int key = last->first;
+        list_.erase(last);
+        map_.erase(key);
+      }
+      list_.push_front(std::make_pair(key, value));
+      map_[key] = list_.begin();
+    } else {
+      auto list_it = it->second;
+      list_it->second = value;
+      list_.splice(list_.begin(), list_, list_it);
+    }
+  }
+  size_t size() const { return list_.size(); }
+
+ private:
+  size_t capacity_;
+  std::list<std::pair<int, int>> list_;
+  std::unordered_map<int, std::list<std::pair<int, int>>::iterator> map_;
+};
+
+/*
 class LruCache {
  public:
   LruCache(int capacity) : capacity_(capacity) {}
@@ -47,6 +87,7 @@ class LruCache {
       list_;  // 需要map通过list的iterator反向获取key的信息，所以list存储了key和value
   std::unordered_map<int, std::list<std::pair<int, int>>::iterator> map_;
 };
+*/
 
 /**
  *Your LRUCache object will be instantiated and called as such:
