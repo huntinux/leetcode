@@ -1,7 +1,7 @@
 cc_library (
     name = "solution",
     srcs = [
-        "solution.cc"
+        "solution_practise.cc"
     ],
     hdrs = [
         "solution.h"
