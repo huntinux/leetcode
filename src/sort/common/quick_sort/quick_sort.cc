@@ -1,6 +1,6 @@
 #include "quick_sort.h"
 
-static int partition(std::vector<int>& vec, int low, int high) {
+static int partition_normal(std::vector<int>& vec, int low, int high) {
   int pivot = low;
   int pivot_val = vec[pivot];
   while (low < high) {
@@ -20,6 +20,21 @@ static int partition(std::vector<int>& vec, int low, int high) {
   pivot = low;  // 最后low与high相遇的位置几位pivot的最终位置
   vec[pivot] = pivot_val;  // 回复pivot位置的值
   return pivot;
+}
+
+static int sort_three_and_return_median_index(std::vector<int>& vec, int low, int high, int middle) {
+  if (vec[low] > vec[middle]) std::swap(vec[low], vec[middle]);
+  if (vec[low] > vec[high]) std::swap(vec[low], vec[high]);
+  if (vec[middle] > vec[high]) std::swap(vec[middle], vec[high]);
+  return middle;
+}
+
+// 三数取中，避免快排退化成冒泡排序
+// 也可以用rand随机取pivot的位置
+static int partition(std::vector<int>& vec, int low, int high) {
+  int median_index = sort_three_and_return_median_index(vec, low, low + (high - low) / 2, high);
+  std::swap(vec[low], vec[median_index]);
+  return partition_normal(vec, low, high);
 }
 
 void quick_sort_helper(std::vector<int>& vec, int low, int high) {
